@@ -21,15 +21,15 @@ Comprender los fundamentos, métodos, limitaciones y riesgos de la anonimizació
 - **Reanudación:** iniciar cada sesión con un resumen breve de dónde quedamos y una sola actividad siguiente, ajustable a las preguntas del estudiante.
 
 ## Estado de progreso
-- **Estado general:** No iniciado.
+- **Estado general:** En estudio.
 - **Última actualización:** 2026-10-09.
 - **Tema actual:** Concepto y finalidad de la anonimización.
-- **Próximo paso:** Responder la pregunta de diagnóstico con palabras propias.
-- **Última evidencia del estudiante:** Aún no hay respuesta registrada.
+- **Próximo paso:** Diferenciar cifrado y anonimización mediante un ejemplo de hospital.
+- **Última evidencia del estudiante:** «Es la manera de encriptar datos para no poder tener toda la información».
 
 | Tema | Estado | Evidencia de comprensión | Dudas pendientes |
 | --- | --- | --- | --- |
-| Concepto y finalidad de la anonimización | Pendiente | — | Diagnóstico inicial |
+| Concepto y finalidad de la anonimización | En estudio | Asocia anonimización con protección de información, pero la confunde con cifrado. | Diferencia entre cifrado y anonimización; riesgo de identificación. |
 | Datos personales, identificadores y cuasiidentificadores | Pendiente | — | — |
 | Anonimización frente a seudonimización | Pendiente | — | — |
 | Riesgo de reidentificación | Pendiente | — | — |
@@ -47,6 +47,15 @@ Comprender los fundamentos, métodos, limitaciones y riesgos de la anonimizació
 - **Resultado:** Preparado para iniciar el diagnóstico; no se ha acreditado ningún tema.
 - **Siguiente paso:** Responder la primera pregunta de diagnóstico.
 
+### 2026-10-09 — Primer diagnóstico conceptual
+- **Pregunta:** ¿Qué significa anonimizar un conjunto de datos y para qué se hace?
+- **Respuesta literal:** «Es la manera de encriptar datos para no poder tener toda la información».
+- **Acierto:** Reconoce una finalidad de protección de la información.
+- **Vacío identificado:** Confunde cifrado (reversible con clave) con anonimización (orientada a evitar identificación de personas).
+- **Intervención:** Explicación con ejemplo de datos de pacientes; se aclara que quitar nombres tampoco garantiza anonimización.
+- **Estado:** En estudio, sin dominio acreditado.
+- **Siguiente pregunta:** Si un hospital cifra los nombres y conserva la clave para recuperarlos, ¿los datos están anonimizados? ¿Por qué?
+
 ### Plantilla para próximas sesiones
 - **Fecha y concepto:**
 - **Mi explicación inicial:**
@@ -62,4 +71,4 @@ _Agregar aquí preguntas avanzadas sin perder el hilo del tema actual._
 ## Primera pregunta de diagnóstico
 **¿Qué significa anonimizar un conjunto de datos y para qué crees que se hace?**
 
-_Respuesta pendiente._
+_Respuesta inicial registrada en la bitácora del 2026-10-09; evaluación en curso._
