@@ -18,7 +18,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 03 | Frecuencias de c1 con value_counts | Explicada; pendiente de ejecución |
 | 04 | Promedio de c2 por categoría c1 | Explicada; pendiente de ejecución |
 | 05 | Máximo de c2 por categoría c1 | Explicada; pendiente de ejecución |
-| 06–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 06 | Valores únicos de c4, mayúsculas y orden alfabético | Explicada; pendiente de ejecución |
+| 07–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -119,3 +120,24 @@ Resultados esperados: A=9, B=9, C=9, D=7, E=9.
 **Feynman:** `groupby("c1")` forma grupos; `["c2"]` selecciona la variable; `max()` toma el valor mayor de cada grupo; `sort_index()` ordena alfabéticamente. A diferencia de `mean()`, no calcula un promedio.
 
 **Estado:** explicada; ejecución no confirmada.
+
+
+## Pregunta 06 — Valores únicos de c4
+Enunciado: usar `data/tbl1.tsv` para obtener valores distintos de `c4`, pasarlos a mayúsculas y retornar lista ordenada alfabéticamente.
+
+```python
+import pandas as pd
+
+def pregunta_06():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl1.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    valores_unicos = df["c4"].unique()
+    valores_mayusculas = [valor.upper() for valor in valores_unicos]
+    return sorted(valores_mayusculas)
+```
+
+Resultado esperado: `["A", "B", "C", "D", "E", "F", "G"]`.
+
+**Feynman:** `unique()` quita duplicados; `upper()` convierte texto a mayúsculas; `sorted()` devuelve una lista ordenada. Alternativa: `sorted(df["c4"].str.upper().unique().tolist())`.
+
+**Estado:** explicada, ejecución no confirmada.
