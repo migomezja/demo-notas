@@ -25,7 +25,7 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 10 | Agrupar, ordenar y concatenar c2 | Explicada; pendiente de ejecución |
 | 11 | Agrupar letras c4 por c0 | Explicada; pendiente de ejecución |
 | 12 | Concatenar c5a:c5b y agrupar por c0 | Explicada; pendiente de ejecución |
-| 13 | Pandas: transformaciones y agregaciones | Pendiente |
+| 13 | Merge de tbl0 y tbl2 por c0 y suma de c5b por c1 | Explicada; pendiente de ejecución |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -270,3 +270,26 @@ Ejemplos: `0 → bbb:0,ddd:9,ggg:8,hhh:2,jjj:3`; `1 → aaa:3,ccc:2,ddd:0,hhh:9`
 **Feynman:** `astype(str)` convierte valores numéricos de `c5b` a texto para concatenar; `:` separa las partes de una pareja y `,` separa parejas; `sorted()` ordena los textos; `reset_index()` devuelve `c0` como columna.
 
 **Estado:** explicada; ejecución no confirmada.
+
+
+## Pregunta 13 — Combinar tablas y sumar por categoría
+Enunciado: combinar `data/tbl0.tsv` y `data/tbl2.tsv` por la columna común `c0`, agrupar por `c1`, sumar `c5b` y retornar una Serie con índice de categorías ordenado alfabéticamente.
+
+```python
+import pandas as pd
+
+def pregunta_13():
+    ruta_tbl0 = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    ruta_tbl2 = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl2.tsv"
+    df0 = pd.read_csv(ruta_tbl0, sep="\t")
+    df2 = pd.read_csv(ruta_tbl2, sep="\t")
+    tabla_combinada = pd.merge(df0, df2, on="c0")
+    resultado = tabla_combinada.groupby("c1")["c5b"].sum()
+    return resultado.sort_index()
+```
+
+Ejemplos del enunciado: A=146, B=134, C=81. Los resultados restantes se calculan sobre los datos completos.
+
+**Feynman:** `pd.merge(..., on="c0")` hace una unión interna por defecto y puede multiplicar filas cuando `c0` aparece varias veces en `tbl2`; `groupby("c1")["c5b"].sum()` suma la columna procedente de `tbl2` por categoría de `tbl0`.
+
+**Estado:** explicada, ejecución no confirmada. Se han explicado las 13 preguntas del laboratorio 2.
