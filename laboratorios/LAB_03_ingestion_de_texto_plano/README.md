@@ -63,3 +63,7 @@ def pregunta_01():
 ```
 
 **Prueba sugerida:** `python -m pytest LAB_03_ingestion_de_texto_plano/tests/test_activity.py -v` desde la raíz del repositorio académico. No se ha confirmado su ejecución.
+
+
+## Depuración tras primera ejecución de pytest
+El usuario ejecutó `test_01`: pasaron las verificaciones de clúster, cantidades y porcentajes, pero falló la primera comparación textual porque el reporte conserva un punto terminal (`partial shade.`) y la prueba exige `partial shade`. Corregir la construcción de `principales_palabras_clave` con `", ".join(palabras).rstrip(".")` para quitar el punto final del texto consolidado. Repetir pytest; resultado posterior aún no confirmado.
