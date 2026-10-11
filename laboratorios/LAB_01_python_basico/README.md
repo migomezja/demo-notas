@@ -79,6 +79,11 @@ if __name__ == "__main__":
 - **Concepto comprobado:** resolución de rutas relativas desde el directorio de trabajo.
 - **Pendiente:** confirmar ejecución y explicar `int(columnas[1])`.
 
+### 2026-10-11 — Conversión numérica (Feynman)
+- **Respuesta de la estudiante:** «porque para sumar se debe tener formato de numero, sea float o int».
+- **Evaluación:** identifica correctamente que se requiere un tipo numérico para sumar aritméticamente. Se reforzó que la lectura en modo texto devuelve cadenas (`str`), que `+` concatena cadenas, y que `int` corresponde a la columna de enteros.
+- **Estado:** comprensión conceptual inicial comprobada; todavía falta confirmar ejecución y resultado de prueba de `pregunta_01()`.
+
 ### Plantilla para siguientes sesiones
 - **Fecha y pregunta:**
 - **Explicación propia:**
