@@ -20,7 +20,7 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 | 04 | Registros por mes | En estudio | Propuesta de conteo por mes; pendiente de ejecución y explicación propia |
 | 05 | Mínimo y máximo por letter | En estudio | Propuesta de extremos por categoría, pendiente de ejecución |
 | 06 | Mínimo y máximo por clave de metrics | En estudio | Propuesta de ciclos anidados y extremos; pendiente de ejecución |
-| 07 | Letras por valor, con repeticiones | Pendiente | — |
+| 07 | Letras por valor, con repeticiones | En estudio | Propuesta de diccionario de listas; pendiente de ejecución |
 | 08 | Letras únicas por valor | Pendiente | — |
 | 09 | Conteo de claves metrics | Pendiente | — |
 | 10 | Cantidad de codes y metrics por fila | Pendiente | — |
@@ -216,3 +216,32 @@ def pregunta_06():
 - **Ejemplo:** `aaa:5,bbb:3` y luego `aaa:2` producen para `aaa` mínimo 2 y máximo 5.
 - **Pregunta diagnóstica:** ¿por qué necesitamos dos ciclos `for` y qué representan `clave` y `valor`?
 - **Estado:** propuesta explicada, sin evidencia de ejecución ni dominio de la estudiante.
+
+
+## Pregunta 07 — Agrupar letras por valor (2026-10-11)
+Para cada valor entero de la segunda columna, reunir las letras de la primera en una lista **con repeticiones y en el orden original**. La respuesta es una lista de tuplas `(valor, letras)` ordenada numéricamente por valor.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_07():
+    grupos = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            letra = columnas[0]
+            valor = int(columnas[1])
+            if valor in grupos:
+                grupos[valor].append(letra)
+            else:
+                grupos[valor] = [letra]
+    return sorted(grupos.items())
+```
+
+### Método Feynman
+- **Estudiar:** diccionarios con listas como valores; método `.append()`; preservación de duplicados y orden; `sorted(...items())`.
+- **Explicar:** por qué la clave del diccionario es `valor` y no `letra`.
+- **Detectar vacíos:** diferenciar `grupos[valor] = [letra]` de `grupos[valor].append(letra)`.
+- **Refinar:** con registros `(A,3),(B,1),(A,3)`, verificar `[(1,["B"]),(3,["A","A"])]`.
+- **Estado:** propuesta explicada; no consta ejecución ni dominio.
