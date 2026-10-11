@@ -17,7 +17,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 02 | Número de columnas en tbl0.tsv | Explicada; pendiente de ejecución |
 | 03 | Frecuencias de c1 con value_counts | Explicada; pendiente de ejecución |
 | 04 | Promedio de c2 por categoría c1 | Explicada; pendiente de ejecución |
-| 05–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 05 | Máximo de c2 por categoría c1 | Explicada; pendiente de ejecución |
+| 06–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -98,3 +99,23 @@ Resultados esperados: A=4.6250, B=5.1429, C=5.4000, D=3.8333, E=4.7857 (aproxima
 **Pregunta de repaso:** si A tiene valores 2, 6 y 7, ¿cuál es su media? ¿Qué cambiaría si usáramos `sum()` en vez de `mean()`?
 
 **Estado:** explicación entregada, ejecución pendiente de confirmar.
+
+
+## Pregunta 05 — Máximos por categoría
+Enunciado: hallar máximo de `c2` agrupando por `c1` en `data/tbl0.tsv`; devolver Serie de Pandas con índice alfabético.
+
+```python
+import pandas as pd
+
+def pregunta_05():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    maximos = df.groupby("c1")["c2"].max()
+    return maximos.sort_index()
+```
+
+Resultados esperados: A=9, B=9, C=9, D=7, E=9.
+
+**Feynman:** `groupby("c1")` forma grupos; `["c2"]` selecciona la variable; `max()` toma el valor mayor de cada grupo; `sort_index()` ordena alfabéticamente. A diferencia de `mean()`, no calcula un promedio.
+
+**Estado:** explicada; ejecución no confirmada.
