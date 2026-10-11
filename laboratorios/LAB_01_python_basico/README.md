@@ -14,7 +14,7 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 ## Ruta de aprendizaje
 | Pregunta | Objetivo | Estado | Evidencia |
 | --- | --- | --- | --- |
-| 01 | Suma de value | En estudio | Propuesta de código, pendiente de ejecución y explicación propia |
+| 01 | Suma de value | En estudio | Ruta relativa comprendida; pendiente de prueba y explicación de int |
 | 02 | Conteos por letter | Pendiente | — |
 | 03 | Sumas por letter | Pendiente | — |
 | 04 | Registros por mes | Pendiente | — |
@@ -73,6 +73,11 @@ if __name__ == "__main__":
 - Se propuso una solución de la pregunta 01 para trabajar localmente.
 - **No hay evidencia de ejecución ni dominio de la estudiante.**
 - **Siguiente paso:** explicar la conversión a entero y ejecutar la primera función.
+
+### 2026-10-11 — Comprobación de rutas relativas
+- La estudiante identificó correctamente que, al ejecutar desde `LAB_01_python_basico`, la ruta relativa `LAB_01_python_basico/data/data.csv.gz` se resuelve duplicando ese segmento.
+- **Concepto comprobado:** resolución de rutas relativas desde el directorio de trabajo.
+- **Pendiente:** confirmar ejecución y explicar `int(columnas[1])`.
 
 ### Plantilla para siguientes sesiones
 - **Fecha y pregunta:**
