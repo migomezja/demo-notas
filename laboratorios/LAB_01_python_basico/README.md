@@ -359,3 +359,38 @@ def pregunta_11():
 - **Ejemplo:** filas `(value=5,codes=a,b)`, `(value=3,codes=b,c)`, `(value=7,codes=a,c)` producen `{"a":12,"b":8,"c":10}`.
 - **Pregunta diagnóstica:** si una fila tiene `value=4` y `codes=a,c`, ¿qué cantidad se suma a cada código?
 - **Estado:** propuesta explicada; pendiente de ejecución y explicación propia.
+
+
+## Pregunta 12 — Sumar valores de metrics por letra (2026-10-11)
+Última pregunta del laboratorio. Agrupar por `letter` (primera columna) y sumar **todos** los valores numéricos presentes en `metrics` (quinta columna). No sumar la segunda columna `value` ni agrupar por la clave de la métrica. Salida: diccionario. Resultado esperado: `{"A":177,"B":187,"C":114,"D":136,"E":324}`.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_12():
+    sumas = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            letra = columnas[0]
+            metricas = columnas[4].split(",")
+            for metrica in metricas:
+                clave, valor = metrica.split(":")
+                valor = int(valor)
+                if letra in sumas:
+                    sumas[letra] += valor
+                else:
+                    sumas[letra] = valor
+    return sumas
+```
+
+### Método Feynman
+- **Conceptos:** diccionario de acumulación, ciclos anidados, separación `clave:valor`, conversión a entero.
+- **Diferencia con pregunta 11:** aquí se suman los números de las métricas y se agrupa por la letra; en pregunta 11 se suma `value` por código.
+- **Ejemplo:** filas `A, aaa:5,bbb:3` y `A, aaa:7,ccc:4` aportan 8 y 11; total A=19.
+- **Pregunta diagnóstica:** si una fila de letra `B` tiene `aaa:4,bbb:6,ccc:2`, ¿cuánto se suma a `sumas["B"]`?
+- **Estado:** solución propuesta, pendiente de ejecución y verificación con pytest.
+
+### Cierre del laboratorio
+Se han explicado las 12 preguntas. Solo consta ejecución confirmada por la estudiante de la pregunta 01 (resultado 214); las demás deben verificarse ejecutando los scripts y, de ser posible, la batería de pruebas. El repositorio académico permanece de solo lectura para el asistente.
