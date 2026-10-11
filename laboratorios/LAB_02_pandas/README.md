@@ -22,7 +22,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 07 | Suma de c2 por categoría c1 | Explicada; pendiente de ejecución |
 | 08 | Nueva columna suma = c0 + c2 | Explicada; pendiente de ejecución |
 | 09 | Extraer año textual de c3 | Explicada; pendiente de ejecución |
-| 10–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 10 | Agrupar, ordenar y concatenar c2 | Explicada; pendiente de ejecución |
+| 11–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -200,3 +201,25 @@ def pregunta_09():
 Ejemplos: `1999-02-28` → `"1999"`; `1998-05-02` → `"1998"`. Resultado: DataFrame de 40 filas y 5 columnas. `.str[:4]` conserva texto, mientras que `pd.to_datetime(...).dt.year` produce años numéricos.
 
 **Estado:** explicada; ejecución no confirmada.
+
+
+## Pregunta 10 — Concatenación de valores por categoría
+Enunciado: por cada categoría de `c1` en `data/tbl0.tsv`, ordenar los valores de `c2` numéricamente, unirlos con `:` y retornar **DataFrame** con índice de categorías alfabéticas y una única columna `c2`.
+
+```python
+import pandas as pd
+
+def pregunta_10():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    resultado = df.groupby("c1")["c2"].apply(
+        lambda valores: ":".join(str(valor) for valor in sorted(valores))
+    )
+    return resultado.sort_index().to_frame(name="c2")
+```
+
+Ejemplos del enunciado: A=`1:1:2:3:6:7:8:9`, B=`1:3:4:5:6:8:9`, C=`0:5:6:7:9`.
+
+**Feynman:** `apply()` transforma cada grupo con función propia; `sorted()` ordena números antes de convertirlos a texto; `str()` permite usar `join()`; `to_frame(name="c2")` garantiza DataFrame de una columna. Conservar valores repetidos.
+
+**Estado:** explicada, ejecución no confirmada.
