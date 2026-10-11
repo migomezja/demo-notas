@@ -24,7 +24,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 09 | Extraer año textual de c3 | Explicada; pendiente de ejecución |
 | 10 | Agrupar, ordenar y concatenar c2 | Explicada; pendiente de ejecución |
 | 11 | Agrupar letras c4 por c0 | Explicada; pendiente de ejecución |
-| 12–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 12 | Concatenar c5a:c5b y agrupar por c0 | Explicada; pendiente de ejecución |
+| 13 | Pandas: transformaciones y agregaciones | Pendiente |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -246,3 +247,26 @@ Ejemplos: `0 → b,f,g`, `1 → a,c,f`, `2 → a,c,e,f`. Resultado: DataFrame 40
 **Feynman:** `groupby("c0")` crea grupos; `sorted()` ordena letras; `join()` concatena; `reset_index()` recupera `c0` como columna. Diferencia con pregunta 10: allí se exige categoría como índice.
 
 **Estado:** explicada, ejecución no confirmada.
+
+
+## Pregunta 12 — Combinar dos columnas y agrupar textos
+Enunciado: en `data/tbl2.tsv`, crear por fila texto `c5a:c5b`, agrupar por `c0`, ordenar textos alfabéticamente y unirlos con comas. Retornar DataFrame con columnas `c0` y `c5` y una fila por identificador ascendente.
+
+```python
+import pandas as pd
+
+def pregunta_12():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl2.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    df["c5"] = df["c5a"] + ":" + df["c5b"].astype(str)
+    resultado = df.groupby("c0")["c5"].apply(
+        lambda textos: ",".join(sorted(textos))
+    )
+    return resultado.reset_index().sort_values("c0").reset_index(drop=True)
+```
+
+Ejemplos: `0 → bbb:0,ddd:9,ggg:8,hhh:2,jjj:3`; `1 → aaa:3,ccc:2,ddd:0,hhh:9`. Resultado: DataFrame de 40 filas y 2 columnas.
+
+**Feynman:** `astype(str)` convierte valores numéricos de `c5b` a texto para concatenar; `:` separa las partes de una pareja y `,` separa parejas; `sorted()` ordena los textos; `reset_index()` devuelve `c0` como columna.
+
+**Estado:** explicada; ejecución no confirmada.
