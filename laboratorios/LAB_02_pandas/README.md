@@ -14,7 +14,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | Pregunta | Tema | Estado |
 |---|---|---|
 | 01 | Número de registros en tbl0.tsv | Explicada; pendiente de ejecución |
-| 02–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 02 | Número de columnas en tbl0.tsv | Explicada; pendiente de ejecución |
+| 03–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -35,3 +36,19 @@ Resultado esperado de las pruebas: **40**.
 Explicación Feynman: `read_csv` carga TSV al especificar `sep="\t"`; `DataFrame` es una tabla; `len(df)` cuenta filas sin el encabezado. Pregunta de repaso: ¿por qué usamos `sep="\t"` y qué devuelve `len(df)`?
 
 **Estado:** el código fue presentado, aún no hay ejecución confirmada del estudiante.
+
+
+## Pregunta 02 — Número de columnas
+Enunciado: ¿Cuántas columnas tiene `data/tbl0.tsv`? Retornar entero.
+
+```python
+import pandas as pd
+
+def pregunta_02():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    cantidad = len(df.columns)
+    return int(cantidad)
+```
+
+Resultado esperado: **4**. Feynman: `len(df)` cuenta filas; `len(df.columns)` cuenta columnas; `df.shape` devuelve (filas, columnas). **Pendiente:** ejecución por estudiante. Pregunta de comprobación: si un DataFrame tiene 10 filas y 3 columnas, ¿qué devuelven `len(df)` y `len(df.columns)`?
