@@ -18,7 +18,7 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 | 02 | Conteos por letter | En estudio | Propuesta de diccionario de frecuencias, pendiente de ejecución y explicación propia |
 | 03 | Sumas por letter | Pendiente | — |
 | 04 | Registros por mes | En estudio | Propuesta de conteo por mes; pendiente de ejecución y explicación propia |
-| 05 | Mínimo y máximo por letter | Pendiente | — |
+| 05 | Mínimo y máximo por letter | En estudio | Propuesta de extremos por categoría, pendiente de ejecución |
 | 06 | Mínimo y máximo por clave de metrics | Pendiente | — |
 | 07 | Letras por valor, con repeticiones | Pendiente | — |
 | 08 | Letras únicas por valor | Pendiente | — |
@@ -156,3 +156,32 @@ def pregunta_04():
 - Se reutiliza el diccionario de frecuencias de la pregunta 02.
 - **Pregunta diagnóstica:** ¿qué devuelve `"2024-07-15".split("-")[1]` y por qué no es necesario `int()`?
 - **Estado:** solución ofrecida, todavía sin evidencia de ejecución ni dominio.
+
+
+## Pregunta 05 — Máximo y mínimo por letra
+El enunciado exige tuplas `(letra, máximo, mínimo)`, en ese orden. Resultado esperado: `[("A",9,2),("B",9,1),("C",9,0),("D",8,3),("E",9,1)]`.
+
+### Código propuesto (sin ejecución confirmada)
+```python
+import gzip
+
+def pregunta_05():
+    extremos = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            letra = columnas[0]
+            valor = int(columnas[1])
+            if letra in extremos:
+                extremos[letra][0] = max(extremos[letra][0], valor)
+                extremos[letra][1] = min(extremos[letra][1], valor)
+            else:
+                extremos[letra] = [valor, valor]
+    return [(letra, valores[0], valores[1]) for letra, valores in sorted(extremos.items())]
+```
+
+### Feynman
+- **Conceptos:** diccionario de listas, índices, funciones `max` y `min`, comprensión de listas.
+- **Explicación clave:** para la primera observación de cada letra, ese valor es tanto su máximo como su mínimo.
+- **Pregunta:** si `extremos["A"] = [5,5]` y aparece una fila `A,9`, ¿cómo queda la lista? ¿Qué ocurre si después aparece `A,2`?
+- **Estado:** código y explicación propuestos, pendientes de ejecución y respuesta de la estudiante.
