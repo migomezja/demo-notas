@@ -21,7 +21,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 06 | Valores únicos de c4, mayúsculas y orden alfabético | Explicada; pendiente de ejecución |
 | 07 | Suma de c2 por categoría c1 | Explicada; pendiente de ejecución |
 | 08 | Nueva columna suma = c0 + c2 | Explicada; pendiente de ejecución |
-| 09–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 09 | Extraer año textual de c3 | Explicada; pendiente de ejecución |
+| 10–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -181,3 +182,21 @@ def pregunta_08():
 Primeras filas de `suma`: 1, 3, 7, 6. **Feynman:** suma elemento a elemento (vectorizada), diferente de `df["c2"].sum()` y de `df.groupby("c1")["c2"].sum()`. La asignación a columna inexistente la crea al final.
 
 **Estado:** explicada; ejecución pendiente de confirmar.
+
+
+## Pregunta 09 — Año como texto
+Enunciado: retornar `data/tbl0.tsv` completa con columna `year` al final, extrayendo los primeros cuatro caracteres de `c3` (formato AAAA-MM-DD). El año debe ser **texto**.
+
+```python
+import pandas as pd
+
+def pregunta_09():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    df["year"] = df["c3"].str[:4]
+    return df
+```
+
+Ejemplos: `1999-02-28` → `"1999"`; `1998-05-02` → `"1998"`. Resultado: DataFrame de 40 filas y 5 columnas. `.str[:4]` conserva texto, mientras que `pd.to_datetime(...).dt.year` produce años numéricos.
+
+**Estado:** explicada; ejecución no confirmada.
