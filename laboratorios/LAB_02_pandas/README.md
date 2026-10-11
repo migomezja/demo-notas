@@ -19,7 +19,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 04 | Promedio de c2 por categoría c1 | Explicada; pendiente de ejecución |
 | 05 | Máximo de c2 por categoría c1 | Explicada; pendiente de ejecución |
 | 06 | Valores únicos de c4, mayúsculas y orden alfabético | Explicada; pendiente de ejecución |
-| 07–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 07 | Suma de c2 por categoría c1 | Explicada; pendiente de ejecución |
+| 08–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -139,5 +140,25 @@ def pregunta_06():
 Resultado esperado: `["A", "B", "C", "D", "E", "F", "G"]`.
 
 **Feynman:** `unique()` quita duplicados; `upper()` convierte texto a mayúsculas; `sorted()` devuelve una lista ordenada. Alternativa: `sorted(df["c4"].str.upper().unique().tolist())`.
+
+**Estado:** explicada, ejecución no confirmada.
+
+
+## Pregunta 07 — Sumas por categoría
+Enunciado: sumar `c2` para cada categoría de `c1` en `data/tbl0.tsv`; devolver Serie de Pandas ordenada alfabéticamente.
+
+```python
+import pandas as pd
+
+def pregunta_07():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    sumas = df.groupby("c1")["c2"].sum()
+    return sumas.sort_index()
+```
+
+Resultado esperado: A=37, B=36, C=27, D=23, E=67.
+
+**Feynman:** `groupby("c1")` forma grupos; `["c2"]` selecciona la columna; `sum()` acumula los valores dentro de cada grupo; `sort_index()` ordena categorías. Contrastar con `mean()`, `max()` y `value_counts()`.
 
 **Estado:** explicada, ejecución no confirmada.
