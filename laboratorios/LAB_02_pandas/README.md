@@ -15,7 +15,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 |---|---|---|
 | 01 | Número de registros en tbl0.tsv | Explicada; pendiente de ejecución |
 | 02 | Número de columnas en tbl0.tsv | Explicada; pendiente de ejecución |
-| 03–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 03 | Frecuencias de c1 con value_counts | Explicada; pendiente de ejecución |
+| 04–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -52,3 +53,25 @@ def pregunta_02():
 ```
 
 Resultado esperado: **4**. Feynman: `len(df)` cuenta filas; `len(df.columns)` cuenta columnas; `df.shape` devuelve (filas, columnas). **Pendiente:** ejecución por estudiante. Pregunta de comprobación: si un DataFrame tiene 10 filas y 3 columnas, ¿qué devuelven `len(df)` y `len(df.columns)`?
+
+
+## Pregunta 03 — Frecuencias por categoría de c1
+Enunciado: contar registros por categoría de `c1` en `data/tbl0.tsv`, devolver una **Serie Pandas** con índice alfabético.
+
+```python
+import pandas as pd
+
+def pregunta_03():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    frecuencias = df["c1"].value_counts()
+    return frecuencias.sort_index()
+```
+
+Resultado esperado: A=8, B=7, C=5, D=6, E=14 (total 40).
+
+**Feynman:** `df["c1"]` selecciona una Serie; `value_counts()` cuenta ocurrencias y por defecto ordena por frecuencia; `sort_index()` ordena las etiquetas alfabéticamente. Distinguir contar registros de sumar valores de `c2`.
+
+**Pregunta de repaso:** ¿por qué usamos `sort_index()` en lugar de `sort_values()`?
+
+**Estado:** solución explicada, ejecución pendiente de confirmar.
