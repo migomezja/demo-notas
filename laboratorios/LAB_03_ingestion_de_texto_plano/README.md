@@ -19,4 +19,47 @@ Una función `src/pregunta_01.py::pregunta_01()`: devolver 13 filas (clústeres 
 Usar Pandas, no modificar `data/` ni `tests/`, retornar DataFrame sin imprimir ni escribir archivos de salida desde la función.
 
 ## Estado
-Revisado el enunciado, datos y pruebas; explicación introductoria iniciada. Solución y ejecución pendientes de estudio y comprobación.
+Revisado el enunciado, datos y pruebas; explicación introductoria iniciada. Script propuesto y explicado; ejecución y pruebas pendientes de confirmación.
+
+
+## Script propuesto para pregunta_01
+
+```python
+import re
+from pathlib import Path
+import pandas as pd
+
+def pregunta_01():
+    ruta = Path(__file__).resolve().parents[1] / "data" / "clusters_report.txt"
+    texto = ruta.read_text(encoding="utf-8")
+    patron = re.compile(r"^\s*(\d+)\s+(\d+)\s+(\d+,\d+)\s*%\s*(.*)$")
+    registros = []
+    actual = None
+    for linea in texto.splitlines():
+        m = patron.match(linea)
+        if m:
+            if actual is not None:
+                registros.append(actual)
+            cluster, cantidad, porcentaje, palabras = m.groups()
+            actual = {
+                "cluster": int(cluster),
+                "cantidad_de_palabras_clave": int(cantidad),
+                "porcentaje_de_palabras_clave": float(porcentaje.replace(",", ".")),
+                "fragmentos": [palabras],
+            }
+        elif actual is not None and linea.strip():
+            actual["fragmentos"].append(linea.strip())
+    if actual is not None:
+        registros.append(actual)
+    for registro in registros:
+        texto_palabras = " ".join(" ".join(registro["fragmentos"]).split())
+        palabras = [p.strip() for p in texto_palabras.split(",")]
+        registro["principales_palabras_clave"] = ", ".join(palabras)
+        del registro["fragmentos"]
+    return pd.DataFrame(registros, columns=[
+        "cluster", "cantidad_de_palabras_clave",
+        "porcentaje_de_palabras_clave", "principales_palabras_clave",
+    ])
+```
+
+**Prueba sugerida:** `python -m pytest LAB_03_ingestion_de_texto_plano/tests/test_activity.py -v` desde la raíz del repositorio académico. No se ha confirmado su ejecución.
