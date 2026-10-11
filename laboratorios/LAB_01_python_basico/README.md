@@ -21,7 +21,7 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 | 05 | Mínimo y máximo por letter | En estudio | Propuesta de extremos por categoría, pendiente de ejecución |
 | 06 | Mínimo y máximo por clave de metrics | En estudio | Propuesta de ciclos anidados y extremos; pendiente de ejecución |
 | 07 | Letras por valor, con repeticiones | En estudio | Propuesta de diccionario de listas; pendiente de ejecución |
-| 08 | Letras únicas por valor | Pendiente | — |
+| 08 | Letras únicas por valor | En estudio | Propuesta con conjuntos y ordenación; pendiente de ejecución |
 | 09 | Conteo de claves metrics | Pendiente | — |
 | 10 | Cantidad de codes y metrics por fila | Pendiente | — |
 | 11 | Suma de value por code | Pendiente | — |
@@ -245,3 +245,30 @@ def pregunta_07():
 - **Detectar vacíos:** diferenciar `grupos[valor] = [letra]` de `grupos[valor].append(letra)`.
 - **Refinar:** con registros `(A,3),(B,1),(A,3)`, verificar `[(1,["B"]),(3,["A","A"])]`.
 - **Estado:** propuesta explicada; no consta ejecución ni dominio.
+
+
+## Pregunta 08 — Letras únicas por valor (2026-10-11)
+Repetir la agrupación de la pregunta 07, pero eliminando letras duplicadas en cada valor y ordenando alfabéticamente las listas resultantes. Las tuplas se ordenan por el valor numérico.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_08():
+    grupos = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            letra = columnas[0]
+            valor = int(columnas[1])
+            if valor in grupos:
+                grupos[valor].add(letra)
+            else:
+                grupos[valor] = {letra}
+    return [(valor, sorted(letras)) for valor, letras in sorted(grupos.items())]
+```
+
+### Feynman
+- **Conceptos:** `set`, método `.add()`, diferencia con listas y `.append()`, ordenación `sorted()`.
+- **Pregunta diagnóstica:** si un conjunto contiene `{"A", "E"}` y ejecutamos `.add("A")`, ¿cuántas letras contendrá y por qué?
+- **Estado:** código propuesto, pendiente de ejecución y explicación propia.
