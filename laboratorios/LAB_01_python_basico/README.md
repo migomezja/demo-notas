@@ -17,7 +17,7 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 | 01 | Suma de value | Resuelta; pendiente pytest | La estudiante confirmó salida 214, explicó conversión numérica y resolvió ejercicio de rutas |
 | 02 | Conteos por letter | En estudio | Propuesta de diccionario de frecuencias, pendiente de ejecución y explicación propia |
 | 03 | Sumas por letter | Pendiente | — |
-| 04 | Registros por mes | Pendiente | — |
+| 04 | Registros por mes | En estudio | Propuesta de conteo por mes; pendiente de ejecución y explicación propia |
 | 05 | Mínimo y máximo por letter | Pendiente | — |
 | 06 | Mínimo y máximo por clave de metrics | Pendiente | — |
 | 07 | Letras por valor, con repeticiones | Pendiente | — |
@@ -126,3 +126,33 @@ if __name__ == "__main__":
 - **Resultado de pruebas:**
 - **Ejemplo de transferencia:**
 - **Próximo paso:**
+
+
+## Pregunta 04 — Conteo por mes (2026-10-11)
+El enunciado pide contar filas por mes de la columna `date` (tercera columna, índice 2), devolviendo lista de tuplas `(mes, cantidad)` ordenadas por mes. La fecha tiene formato `YYYY-MM-DD`.
+
+### Solución propuesta (pendiente de ejecución por la estudiante)
+```python
+import gzip
+
+def pregunta_04():
+    conteos = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            fecha = columnas[2]
+            mes = fecha.split("-")[1]
+            if mes in conteos:
+                conteos[mes] += 1
+            else:
+                conteos[mes] = 1
+    return sorted(conteos.items())
+```
+
+### Conceptos Feynman
+- `columnas[2]` es la tercera columna, pues los índices comienzan en 0.
+- `fecha.split("-")` separa año, mes y día; `[1]` selecciona el mes.
+- Los meses se conservan como texto de dos dígitos para respetar el formato solicitado.
+- Se reutiliza el diccionario de frecuencias de la pregunta 02.
+- **Pregunta diagnóstica:** ¿qué devuelve `"2024-07-15".split("-")[1]` y por qué no es necesario `int()`?
+- **Estado:** solución ofrecida, todavía sin evidencia de ejecución ni dominio.
