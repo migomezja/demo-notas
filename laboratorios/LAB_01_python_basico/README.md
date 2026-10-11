@@ -19,7 +19,7 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 | 03 | Sumas por letter | Pendiente | — |
 | 04 | Registros por mes | En estudio | Propuesta de conteo por mes; pendiente de ejecución y explicación propia |
 | 05 | Mínimo y máximo por letter | En estudio | Propuesta de extremos por categoría, pendiente de ejecución |
-| 06 | Mínimo y máximo por clave de metrics | Pendiente | — |
+| 06 | Mínimo y máximo por clave de metrics | En estudio | Propuesta de ciclos anidados y extremos; pendiente de ejecución |
 | 07 | Letras por valor, con repeticiones | Pendiente | — |
 | 08 | Letras únicas por valor | Pendiente | — |
 | 09 | Conteo de claves metrics | Pendiente | — |
@@ -185,3 +185,34 @@ def pregunta_05():
 - **Explicación clave:** para la primera observación de cada letra, ese valor es tanto su máximo como su mínimo.
 - **Pregunta:** si `extremos["A"] = [5,5]` y aparece una fila `A,9`, ¿cómo queda la lista? ¿Qué ocurre si después aparece `A,2`?
 - **Estado:** código y explicación propuestos, pendientes de ejecución y respuesta de la estudiante.
+
+
+## Pregunta 06 — Extremos de metrics (2026-10-11)
+La quinta columna `metrics` contiene pares `clave:valor` separados por comas. Se deben obtener tuplas `(clave, mínimo, máximo)` ordenadas por clave; **a diferencia de la pregunta 05, el mínimo va primero**.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_06():
+    extremos = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            metricas = columnas[4].split(",")
+            for metrica in metricas:
+                clave, valor = metrica.split(":")
+                valor = int(valor)
+                if clave in extremos:
+                    extremos[clave][0] = min(extremos[clave][0], valor)
+                    extremos[clave][1] = max(extremos[clave][1], valor)
+                else:
+                    extremos[clave] = [valor, valor]
+    return [(clave, valores[0], valores[1]) for clave, valores in sorted(extremos.items())]
+```
+
+### Feynman
+- **Conceptos:** dos ciclos `for` anidados, `split(",")`, desempaquetado `clave, valor = ...split(":")`, conversión `int`, actualización de extremos.
+- **Ejemplo:** `aaa:5,bbb:3` y luego `aaa:2` producen para `aaa` mínimo 2 y máximo 5.
+- **Pregunta diagnóstica:** ¿por qué necesitamos dos ciclos `for` y qué representan `clave` y `valor`?
+- **Estado:** propuesta explicada, sin evidencia de ejecución ni dominio de la estudiante.
