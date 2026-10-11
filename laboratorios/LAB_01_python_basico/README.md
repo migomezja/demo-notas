@@ -329,3 +329,33 @@ def pregunta_10():
 - **Diferencia clave:** en esta pregunta no se agrupa por categoría, por eso no necesitamos diccionario ni `sorted()`.
 - **Pregunta diagnóstica:** para códigos `a,b,c` y métricas `aaa:5,bbb:3`, ¿qué tupla se obtiene si la letra es `A`?
 - **Estado:** código y explicación propuestos, pendientes de ejecución y respuesta.
+
+
+## Pregunta 11 — Sumar valores por código (2026-10-11)
+La cuarta columna contiene códigos separados por comas. Para cada código se suma el `value` (segunda columna) de todas las filas que lo contienen. La salida es un diccionario de sumas, no frecuencias.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_11():
+    sumas = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            valor = int(columnas[1])
+            codigos = columnas[3].split(",")
+            for codigo in codigos:
+                if codigo in sumas:
+                    sumas[codigo] += valor
+                else:
+                    sumas[codigo] = valor
+    return sumas
+```
+
+### Método Feynman
+- **Conceptos:** suma acumulada por categoría; ciclos anidados; `split(",")`; diccionarios.
+- **Diferencia:** `+= 1` cuenta apariciones; `+= valor` suma magnitudes.
+- **Ejemplo:** filas `(value=5,codes=a,b)`, `(value=3,codes=b,c)`, `(value=7,codes=a,c)` producen `{"a":12,"b":8,"c":10}`.
+- **Pregunta diagnóstica:** si una fila tiene `value=4` y `codes=a,c`, ¿qué cantidad se suma a cada código?
+- **Estado:** propuesta explicada; pendiente de ejecución y explicación propia.
