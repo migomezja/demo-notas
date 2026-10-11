@@ -14,8 +14,8 @@ El archivo `data/data.csv.gz` contiene registros tabulados sin encabezado, con c
 ## Ruta de aprendizaje
 | Pregunta | Objetivo | Estado | Evidencia |
 | --- | --- | --- | --- |
-| 01 | Suma de value | En estudio | Ruta relativa comprendida; pendiente de prueba y explicación de int |
-| 02 | Conteos por letter | Pendiente | — |
+| 01 | Suma de value | Resuelta; pendiente pytest | La estudiante confirmó salida 214, explicó conversión numérica y resolvió ejercicio de rutas |
+| 02 | Conteos por letter | En estudio | Propuesta de diccionario de frecuencias, pendiente de ejecución y explicación propia |
 | 03 | Sumas por letter | Pendiente | — |
 | 04 | Registros por mes | Pendiente | — |
 | 05 | Mínimo y máximo por letter | Pendiente | — |
@@ -83,6 +83,41 @@ if __name__ == "__main__":
 - **Respuesta de la estudiante:** «porque para sumar se debe tener formato de numero, sea float o int».
 - **Evaluación:** identifica correctamente que se requiere un tipo numérico para sumar aritméticamente. Se reforzó que la lectura en modo texto devuelve cadenas (`str`), que `+` concatena cadenas, y que `int` corresponde a la columna de enteros.
 - **Estado:** comprensión conceptual inicial comprobada; todavía falta confirmar ejecución y resultado de prueba de `pregunta_01()`.
+
+### 2026-10-11 — Resultado de pregunta 01 confirmado
+- La estudiante confirmó que su ejecución local produjo **214**.
+- Se completó la explicación básica de conversión a `int` y rutas relativas.
+- **Pendiente:** no se ha comunicado resultado de `pytest`; no registrar la prueba como aprobada.
+
+## Pregunta 02 — Frecuencia por letra
+Se requiere una lista de tuplas `(letra, cantidad)` ordenada alfabéticamente. La prueba del profesor espera `[("A", 8), ("B", 7), ("C", 5), ("D", 6), ("E", 14)]`.
+
+### Propuesta para estudiar (sin ejecución confirmada)
+```python
+import gzip
+
+def pregunta_02():
+    conteos = {}
+    with gzip.open("data/data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            letra = columnas[0]
+            if letra in conteos:
+                conteos[letra] += 1
+            else:
+                conteos[letra] = 1
+    return sorted(conteos.items())
+
+if __name__ == "__main__":
+    print(pregunta_02())
+```
+
+### Conceptos Feynman por verificar
+- Diccionarios como tablas de frecuencias.
+- Diferencia entre clave existente y nueva.
+- `+= 1` como incremento de conteo.
+- `.items()` y `sorted()`.
+- **Pregunta diagnóstica:** ¿Por qué se usa `conteos[letra] = 1` cuando la letra aparece por primera vez y `+= 1` cuando ya existe?
 
 ### Plantilla para siguientes sesiones
 - **Fecha y pregunta:**
