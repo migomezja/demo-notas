@@ -23,7 +23,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 08 | Nueva columna suma = c0 + c2 | Explicada; pendiente de ejecución |
 | 09 | Extraer año textual de c3 | Explicada; pendiente de ejecución |
 | 10 | Agrupar, ordenar y concatenar c2 | Explicada; pendiente de ejecución |
-| 11–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 11 | Agrupar letras c4 por c0 | Explicada; pendiente de ejecución |
+| 12–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -221,5 +222,27 @@ def pregunta_10():
 Ejemplos del enunciado: A=`1:1:2:3:6:7:8:9`, B=`1:3:4:5:6:8:9`, C=`0:5:6:7:9`.
 
 **Feynman:** `apply()` transforma cada grupo con función propia; `sorted()` ordena números antes de convertirlos a texto; `str()` permite usar `join()`; `to_frame(name="c2")` garantiza DataFrame de una columna. Conservar valores repetidos.
+
+**Estado:** explicada, ejecución no confirmada.
+
+
+## Pregunta 11 — Concatenar letras por identificador
+Enunciado: en `data/tbl1.tsv`, una fila por `c0` ascendente, columnas `c0` y `c4`; en `c4`, letras de cada identificador ordenadas y separadas por comas.
+
+```python
+import pandas as pd
+
+def pregunta_11():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl1.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    resultado = df.groupby("c0")["c4"].apply(
+        lambda letras: ",".join(sorted(letras))
+    )
+    return resultado.reset_index().sort_values("c0")
+```
+
+Ejemplos: `0 → b,f,g`, `1 → a,c,f`, `2 → a,c,e,f`. Resultado: DataFrame 40×2, columnas `c0` y `c4`.
+
+**Feynman:** `groupby("c0")` crea grupos; `sorted()` ordena letras; `join()` concatena; `reset_index()` recupera `c0` como columna. Diferencia con pregunta 10: allí se exige categoría como índice.
 
 **Estado:** explicada, ejecución no confirmada.
