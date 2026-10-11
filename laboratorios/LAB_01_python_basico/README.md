@@ -272,3 +272,32 @@ def pregunta_08():
 - **Conceptos:** `set`, método `.add()`, diferencia con listas y `.append()`, ordenación `sorted()`.
 - **Pregunta diagnóstica:** si un conjunto contiene `{"A", "E"}` y ejecutamos `.add("A")`, ¿cuántas letras contendrá y por qué?
 - **Estado:** código propuesto, pendiente de ejecución y explicación propia.
+
+
+## Pregunta 09 — Frecuencia de claves de metrics (2026-10-11)
+Contar cuántas veces aparece cada clave de la quinta columna, ignorando los valores numéricos asociados. Retornar un **diccionario** de frecuencias, no una lista de tuplas.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_09():
+    conteos = {}
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            metricas = columnas[4].split(",")
+            for metrica in metricas:
+                clave = metrica.split(":")[0]
+                if clave in conteos:
+                    conteos[clave] += 1
+                else:
+                    conteos[clave] = 1
+    return conteos
+```
+
+### Método Feynman
+- **Conceptos:** ciclos anidados, separación de cadenas, diccionario de frecuencias.
+- **Relación:** misma lógica de conteo que la pregunta 02 y mismo procesamiento de métricas que la pregunta 06.
+- **Pregunta diagnóstica:** si las métricas son `aaa:5,bbb:3` y `aaa:9`, ¿cuántas apariciones tiene `aaa` y por qué sus valores 5 y 9 no afectan el conteo?
+- **Estado:** propuesta explicada, pendiente de ejecución y explicación propia.
