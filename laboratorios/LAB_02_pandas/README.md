@@ -20,7 +20,8 @@ Resolver transformaciones, agregaciones y combinaciones tabulares con **Pandas**
 | 05 | Máximo de c2 por categoría c1 | Explicada; pendiente de ejecución |
 | 06 | Valores únicos de c4, mayúsculas y orden alfabético | Explicada; pendiente de ejecución |
 | 07 | Suma de c2 por categoría c1 | Explicada; pendiente de ejecución |
-| 08–13 | Pandas: transformaciones y agregaciones | Pendientes |
+| 08 | Nueva columna suma = c0 + c2 | Explicada; pendiente de ejecución |
+| 09–13 | Pandas: transformaciones y agregaciones | Pendientes |
 
 ## Pregunta 01 — Número de registros
 Enunciado: ¿Cuántos registros tiene `data/tbl0.tsv`? Retornar un entero.
@@ -162,3 +163,21 @@ Resultado esperado: A=37, B=36, C=27, D=23, E=67.
 **Feynman:** `groupby("c1")` forma grupos; `["c2"]` selecciona la columna; `sum()` acumula los valores dentro de cada grupo; `sort_index()` ordena categorías. Contrastar con `mean()`, `max()` y `value_counts()`.
 
 **Estado:** explicada, ejecución no confirmada.
+
+
+## Pregunta 08 — Columna calculada por fila
+Enunciado: retornar `data/tbl0.tsv` completa con una columna adicional al final, `suma`, igual a `c0 + c2` para cada fila. Se retorna un **DataFrame** (40 filas, 5 columnas), no una Serie.
+
+```python
+import pandas as pd
+
+def pregunta_08():
+    ruta = r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_02_pandas\data\tbl0.tsv"
+    df = pd.read_csv(ruta, sep="\t")
+    df["suma"] = df["c0"] + df["c2"]
+    return df
+```
+
+Primeras filas de `suma`: 1, 3, 7, 6. **Feynman:** suma elemento a elemento (vectorizada), diferente de `df["c2"].sum()` y de `df.groupby("c1")["c2"].sum()`. La asignación a columna inexistente la crea al final.
+
+**Estado:** explicada; ejecución pendiente de confirmar.
