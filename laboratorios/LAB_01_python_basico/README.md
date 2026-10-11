@@ -301,3 +301,31 @@ def pregunta_09():
 - **Relación:** misma lógica de conteo que la pregunta 02 y mismo procesamiento de métricas que la pregunta 06.
 - **Pregunta diagnóstica:** si las métricas son `aaa:5,bbb:3` y `aaa:9`, ¿cuántas apariciones tiene `aaa` y por qué sus valores 5 y 9 no afectan el conteo?
 - **Estado:** propuesta explicada, pendiente de ejecución y explicación propia.
+
+
+## Pregunta 10 — Cantidad de códigos y métricas por fila (2026-10-11)
+El objetivo es devolver una lista de tuplas `(letra, cantidad_codigos, cantidad_metricas)`, una por registro, preservando el orden original. El archivo tiene 40 registros.
+
+### Código propuesto (pendiente de ejecución)
+```python
+import gzip
+
+def pregunta_10():
+    resultado = []
+    with gzip.open(r"C:\Analitica_descriptiva\std-milena-gomez-jaramillo\LAB_01_python_basico\data\data.csv.gz", "rt", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+            letra = columnas[0]
+            codigos = columnas[3].split(",")
+            metricas = columnas[4].split(",")
+            cantidad_codigos = len(codigos)
+            cantidad_metricas = len(metricas)
+            resultado.append((letra, cantidad_codigos, cantidad_metricas))
+    return resultado
+```
+
+### Método Feynman
+- **Conceptos:** `len()`, `split(",")`, tuplas, listas, `.append()`, orden de registros.
+- **Diferencia clave:** en esta pregunta no se agrupa por categoría, por eso no necesitamos diccionario ni `sorted()`.
+- **Pregunta diagnóstica:** para códigos `a,b,c` y métricas `aaa:5,bbb:3`, ¿qué tupla se obtiene si la letra es `A`?
+- **Estado:** código y explicación propuestos, pendientes de ejecución y respuesta.
